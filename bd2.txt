@@ -1,0 +1,134 @@
+
+
+-- Tabela Cliente
+CREATE TABLE cliente (
+    id_cliente INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    senha VARCHAR(100) NOT NULL
+);
+
+-- Tabela Loja
+CREATE TABLE loja (
+    id_loja INT PRIMARY KEY INT AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    endereco VARCHAR(200) NOT NULL,
+    cnpj VARCHAR(18),  -- Não obrigatório
+    cpf VARCHAR(14)    -- Não obrigatório
+);
+
+-- Tabela Vendedor
+CREATE TABLE vendedor (
+    id_vendedor INT PRIMARY KEY INT AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    senha VARCHAR(100) NOT NULL,
+    id_loja INT,
+    FOREIGN KEY (id_loja) REFERENCES loja(id_loja)
+);
+
+-- Tabela Produto
+CREATE TABLE produto (
+    id_produto INT PRIMARY KEY INT AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    preco DECIMAL(10,2) NOT NULL,
+    descricao TEXT,
+    id_loja INT,
+    FOREIGN KEY (id_loja) REFERENCES loja(id_loja)
+);
+
+-- Tabela Venda
+CREATE TABLE venda (
+    id_venda INT PRIMARY KEY INT AUTO_INCREMENT,
+    total DECIMAL(10,2) NOT NULL,
+    data DATE NOT NULL,
+    id_cliente INT,
+    id_loja INT,
+    FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente),
+    FOREIGN KEY (id_loja) REFERENCES loja(id_loja)
+);
+
+-- Tabela Item_Venda (relacionamento N:N entre produto e venda)
+CREATE TABLE item_venda (
+    id_item_venda INT primary key,
+    id_venda INT,
+    id_produto INT,
+    item_quantidade INT NOT NULL,
+    item_valor DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (id_venda) REFERENCES venda(id_venda),
+    FOREIGN KEY (id_produto) REFERENCES produto(id_produto)
+);
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+-- Tabela Cliente
+CREATE TABLE cliente (
+    id_cliente INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    senha VARCHAR(100) NOT NULL
+);
+
+-- Tabela Loja
+CREATE TABLE loja (
+    id_loja INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    endereco VARCHAR(200) NOT NULL,
+    cnpj VARCHAR(18),  -- Não obrigatório
+    cpf VARCHAR(14)    -- Não obrigatório
+);
+
+-- Tabela Vendedor
+CREATE TABLE vendedor (
+    id_vendedor INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    senha VARCHAR(100) NOT NULL,
+    id_loja INT,
+    FOREIGN KEY (id_loja) REFERENCES loja(id_loja)
+);
+
+-- Tabela Produto
+CREATE TABLE produto (
+    id_produto INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    preco DECIMAL(10,2) NOT NULL,
+    descricao TEXT,
+    imagem VARCHAR(255),
+    id_loja INT,
+    FOREIGN KEY (id_loja) REFERENCES loja(id_loja)
+);
+
+-- Tabela Venda
+CREATE TABLE venda (
+    id_venda INT PRIMARY KEY AUTO_INCREMENT,
+    total DECIMAL(10,2) NOT NULL,
+    data DATE NOT NULL,
+    id_cliente INT,
+    id_loja INT,
+    FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente),
+    FOREIGN KEY (id_loja) REFERENCES loja(id_loja)
+);
+
+-- Tabela Item_Venda (relacionamento N:N entre produto e venda)
+CREATE TABLE item_venda (
+    id_item_venda INT primary key AUTO_INCREMENT,
+    id_venda INT,
+    id_produto INT,
+    item_quantidade INT NOT NULL,
+    item_valor DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (id_venda) REFERENCES venda(id_venda),
+    FOREIGN KEY (id_produto) REFERENCES produto(id_produto)
+);
